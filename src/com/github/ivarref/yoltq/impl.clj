@@ -12,6 +12,7 @@
   [#:db{:ident :com.github.ivarref.yoltq/id, :cardinality :db.cardinality/one, :valueType :db.type/uuid, :unique :db.unique/identity}
    #:db{:ident :com.github.ivarref.yoltq/ext-id, :cardinality :db.cardinality/one, :valueType :db.type/string, :unique :db.unique/value}
    #:db{:ident :com.github.ivarref.yoltq/queue-name, :cardinality :db.cardinality/one, :valueType :db.type/keyword, :index true}
+   #:db{:ident :com.github.ivarref.yoltq/batch-name, :cardinality :db.cardinality/one, :valueType :db.type/keyword, :index true}
    #:db{:ident :com.github.ivarref.yoltq/status, :cardinality :db.cardinality/one, :valueType :db.type/keyword, :index true}
    #:db{:ident :com.github.ivarref.yoltq/payload, :cardinality :db.cardinality/one, :valueType :db.type/string}
    #:db{:ident :com.github.ivarref.yoltq/payload-bytes, :cardinality :db.cardinality/one, :valueType :db.type/bytes}
@@ -103,7 +104,9 @@
                            (pr-str-safe :depends-on [q ext-id]))
               (throw (ex-info (str ":depends-on not found in database. Queue: " q ", id: " ext-id) opts))))
           (when-let [ext-id (:id opts)]
-            {:com.github.ivarref.yoltq/ext-id (pr-str-safe :id [queue-name ext-id])}))))
+            {:com.github.ivarref.yoltq/ext-id (pr-str-safe :id [queue-name ext-id])})
+          (when-let [batch-name (:batch-name opts)]
+            {:com.github.ivarref.yoltq/batch-name batch-name}))))
     (do
       (log/error "Did not find registered handler for queue" queue-name)
       (throw (ex-info (str "Did not find registered handler for queue: " queue-name) {:queue queue-name})))))

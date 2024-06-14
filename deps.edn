@@ -4,13 +4,13 @@
 
  :paths     ["src"]
 
- :aliases   {:datomic {:extra-deps {com.datomic/datomic-pro {:mvn/version "1.0.6316" :exclusions [org.slf4j/slf4j-nop]}}}
+ :aliases   {:datomic {:extra-deps {com.datomic/peer                         {:mvn/version "1.0.7075" :exclusions [org.slf4j/slf4j-nop]}}}
              :test    {:extra-paths ["test"]
                        :extra-deps  {ivarref/datomic-schema                  {:mvn/version "0.2.0"}
                                      com.taoensso/timbre                     {:mvn/version "5.2.1"}
                                      com.fzakaria/slf4j-timbre               {:mvn/version "0.3.21"}
                                      clojure-term-colors/clojure-term-colors {:mvn/version "0.1.0"}
-                                     com.datomic/datomic-pro                 {:mvn/version "1.0.6316" :exclusions [org.slf4j/slf4j-nop]}
+                                     com.datomic/peer                        {:mvn/version "1.0.7075" :exclusions [org.slf4j/slf4j-nop]}
                                      org.postgresql/postgresql               {:mvn/version "9.3-1102-jdbc41"}
                                      com.taoensso/nippy                      {:mvn/version "3.2.0"}
                                      io.github.cognitect-labs/test-runner    {:git/tag "v0.5.0" :git/sha "b3fd0d2"}}
@@ -28,6 +28,4 @@
                        :exec-fn    deps-deploy.deps-deploy/deploy
                        :exec-args  {:installer      :remote
                                     :sign-releases? false
-                                    :artifact       "target/out.jar"}}}
-
- :mvn/repos {"my.datomic.com" {:url "https://my.datomic.com/repo"}}}
+                                    :artifact       "target/out.jar"}}}}
